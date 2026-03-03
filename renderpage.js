@@ -19,16 +19,63 @@ const extractMetadataFromMarkdown = (markdown) => {
     return metadataObject;
 };
 
+const removeMetadataFromMarkdown = (markdown) => {
+    return markdown.replace(/^---[\s\S]*?---\s*/, '');
+}
+
+function renderPage(target, title) {
+    const titleElement = document.getElementById("title");
+    titleElement.textContent = title;
+
+    const mainContainer = document.getElementById("main-container");
+
+    console.log(typeof showdown)
+
+    var converter = new showdown.Converter();
+    var cleanContent = removeMetadataFromMarkdown(target.content);
+    var html = converter.makeHtml(cleanContent);
+    mainContainer.innerHTML = html;
+}
+
+function renderFallback() {
+    const mainContainer = document.getElementById("main-container");
+    mainContainer.innerHTML = "<p>Content not found.</p>";
+}
+
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 const target_id = urlParams.get("id")
 
-for (let i = 0; i < 100; i++) {
-    const p = await fetch("pages/" + i + ".md")
-    const m_id = extractMetadataFromMarkdown(p).id
+if (!target_id) {
+    console.error("No target ID specified.")
+    renderFallback()
+} else {
+    (async () => {
+        for (let i = 0; i < 100; i++) {
+            try {
+                const res = await fetch("pages/" + i + ".md");
+                if (!res.ok) {
+                    // skip missing pages
+                    continue;
+                }
+                const text = await res.text();
+                const m_id = extractMetadataFromMarkdown(text);
 
-    if (m_id == target_id) {
-        console.log("found!")
-        break
-    }
+                if (!m_id.id) {
+                    // not the matching page, continue searching
+                    continue;
+                }
+
+                if (m_id.id == target_id) {
+                    console.log("found!")
+                    renderPage({ content: text }, m_id.title)
+                    break
+                }
+            } catch (err) {
+                console.error("Error fetching page:", err);
+                renderFallback()
+                return
+            }
+        }
+    })();
 }
