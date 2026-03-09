@@ -23,9 +23,12 @@ const removeMetadataFromMarkdown = (markdown) => {
     return markdown.replace(/^---[\s\S]*?---\s*/, '');
 }
 
-function renderPage(target, title) {
-    const titleElement = document.getElementById("title");
+function renderPage(target, title = "Untitled", author = null) {
+    const titleElement = document.getElementById("titl");
     titleElement.textContent = title;
+
+    const authorElement = document.getElementById("whowrotethis");
+    authorElement.textContent = `Author: ${author || "probably dian"}`;
 
     const mainContainer = document.getElementById("main-container");
 
@@ -68,7 +71,7 @@ if (!target_id) {
 
                 if (m_id.id == target_id) {
                     console.log("found!")
-                    renderPage({ content: text }, m_id.title)
+                    renderPage({ content: text }, m_id.title, m_id.author);
                     break
                 }
             } catch (err) {
