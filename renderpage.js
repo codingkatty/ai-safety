@@ -27,6 +27,9 @@ function renderPage(target, title = "Untitled", author = null) {
     const titleElement = document.getElementById("titl");
     titleElement.textContent = title;
 
+    const otherTitleWhoops = document.getElementById("title");
+    otherTitleWhoops.textContent = title;
+
     const authorElement = document.getElementById("whowrotethis");
     authorElement.textContent = `Author: ${author || "probably dian"}`;
 
