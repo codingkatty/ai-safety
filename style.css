@@ -1,0 +1,29 @@
+body {
+    background-color: #52D8FD;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+#hero {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#idkthisiswhyimnotagoodwebdesigner {
+    margin-left: 70px;
+    animation: spin 10s linear infinite;
+    transform-origin: center center;
+}
+
+#content {
+    margin-top: 100px;
+    min-height: 100vh;
+    background-color: #85E3FF;
+}
+
+@keyframes spin {
+    from { transform: translateY(-850px) rotate(0deg) }
+    to { transform: translateY(-850px) rotate(360deg) }
+}
