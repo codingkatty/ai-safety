@@ -21,6 +21,7 @@ body {
     margin-top: 100px;
     min-height: 100vh;
     background-color: #85E3FF;
+    padding: 50px;
 }
 
 @keyframes spin {

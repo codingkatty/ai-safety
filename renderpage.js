@@ -52,6 +52,8 @@ const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 const target_id = urlParams.get("id")
 
+let whatsnext = null
+
 if (!target_id) {
     console.error("No target ID specified.")
     renderFallback()
@@ -75,6 +77,7 @@ if (!target_id) {
                 if (m_id.id == target_id) {
                     console.log("found!")
                     renderPage({ content: text }, m_id.title, m_id.author);
+                    whatsnext = m_id.next;
                     break
                 }
             } catch (err) {
@@ -84,4 +87,12 @@ if (!target_id) {
             }
         }
     })();
+}
+
+function nextPage() {
+    if (!whatsnext) {
+        window.location.href = "index.html";
+    } else {
+        window.location.href = `content.html?id=${whatsnext}`
+    }
 }
