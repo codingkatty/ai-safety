@@ -28,3 +28,37 @@ body {
     from { transform: translateY(-850px) rotate(0deg) }
     to { transform: translateY(-850px) rotate(360deg) }
 }
+
+.blue {
+    font-family: Inter;
+    font-weight: 500;
+    background-color: #35BAFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.blue:hover {
+    background-color: #1E90FF;
+}
+
+.thing-wrapper {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 45px;
+}
+
+.thing-wrapper p {
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.5;
+}
